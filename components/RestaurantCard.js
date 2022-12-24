@@ -2,7 +2,7 @@ import { View, Text, TouchableOpacity, Image } from "react-native";
 import React from "react";
 import { Ionicons } from "@expo/vector-icons";
 import { Octicons } from "@expo/vector-icons";
-import { urlFor } from "config/sanity";
+import { urlFor } from "../config/sanity";
 
 const RestaurantCard = ({
   id,
