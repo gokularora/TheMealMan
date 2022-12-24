@@ -2,7 +2,7 @@ import { View, Text, TouchableOpacity, Image } from "react-native";
 import React from "react";
 import { Ionicons } from "@expo/vector-icons";
 import { Octicons } from "@expo/vector-icons";
-import { urlFor } from "../sanity";
+import { urlFor } from "config/sanity";
 
 const RestaurantCard = ({
   id,
@@ -16,6 +16,7 @@ const RestaurantCard = ({
   long,
   lat,
 }) => {
+  console.log("url: ", urlFor(imgUrl).url())
   return (
     <TouchableOpacity className="bg-white mr-3 shadow">
       <Image

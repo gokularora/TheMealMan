@@ -13,10 +13,11 @@ import { Entypo } from "@expo/vector-icons";
 import Categories from "../components/Categories";
 import FeaturedRow from "../components/FeaturedRow";
 import sanityClient from "../sanity";
+import { client } from "../config/sanity";
 
 const HomeScreen = () => {
   const navigation = useNavigation();
-  const [featuredCategories, setFeaturedCategories] = useState([]);
+  const [featuredCategories, setFeaturedCategories] = useState();
 
   useLayoutEffect(() => {
     navigation.setOptions({
@@ -24,23 +25,25 @@ const HomeScreen = () => {
     });
   });
 
-  useEffect(() => {
-    sanityClient
-      .fetch(
-        `*[_type =="featured"]{
+  useEffect(() => {    
+    client
+			.fetch(
+				`*[_type =="featured"]{
       ...,
       restaurants[]->{
         ...,
-        dishes[]->
+        dishes[]->,
+        type->{
+          name
+        }
       }
     }`
-      )
+			)
       .then((data) => {
-        setFeaturedCategories(data);
-      });
+        console.log('data: ', data);
+				setFeaturedCategories(data);
+			});
   }, []);
-
-  // console.log(featuredCategories);
 
   return (
     <SafeAreaView className="bg-white pt-5 ">
@@ -89,9 +92,9 @@ const HomeScreen = () => {
         {featuredCategories?.map((category) => (
           <FeaturedRow
             key={category._id}
-            id={category._id}
             title={category.name}
             description={category.short_description}
+            restaurantsData = {category.restaurants}
           />
         ))}
       </ScrollView>
