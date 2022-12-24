@@ -9,8 +9,8 @@ const client = sanityClient({
 	useCdn: false, // `false` if you want to ensure fresh data
 });
 
-function urlFor(source){
-	return imageBuilder.image(source)
+function urlFor(source) {
+	return imageBuilder(client).image(source)
 }
 
 export {client, urlFor};
